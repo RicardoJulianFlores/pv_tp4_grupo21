@@ -4,3 +4,4 @@ Desarrollo de Trabajo Practico N°2
 2. Vilte Figueroa Alexis Gabriel Gerardo - VilteGabriel23
 3. Duran Josue Alejandro - Usuario:josuedurann
 4. Vargas Franco Sebastian - usuario: fraan654
+5. Vazquez Carlos Gabriel - Usuario: CarlosVazquez123
