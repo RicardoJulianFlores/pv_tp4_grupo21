@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { agregarProducto } from './components/ProductForm'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -9,8 +10,9 @@ function App() {
   return (
     <>
       <h1>Catalogo de Productos</h1>
+     <agregarProducto/>
       <div className="card">
-        <button onClick={() => alert('agregado')}>
+        <button onClick={() => alert('agregado') }>
           Agregar un Producto
         </button>
         <button onClick={() => alert('encontrado')}>
