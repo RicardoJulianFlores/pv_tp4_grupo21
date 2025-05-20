@@ -13,9 +13,9 @@ function App() {
     console.log("Productos actualizados:", products);
   }, [products]);
 
-  const addProduct = () => {
-    
-  }
+  const addProduct = useCallback((product) => {
+    setProducts(prev => [...prev, product]);
+  }, []);
 
   const updateProduct = useCallback((updatedProduct) => {
     setProducts(prev => 
