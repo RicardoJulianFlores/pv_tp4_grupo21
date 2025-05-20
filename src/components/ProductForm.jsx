@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 
-export const Formulario = () => {
+export const ProductForm = () => {
     const [producto, setProducto] = useState({
         id: '',
         descripcion: '',
@@ -18,4 +18,4 @@ export const Formulario = () => {
         )
 }
 
-export default AgregarProducto
+export default ProductForm
