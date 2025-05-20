@@ -1,4 +1,4 @@
-export const inicializarLista = (data) => {
+export const ProductList = (data) => {
     const tbody = document.querySelector('#catalogo tbody');
     tbody.innerHTML = '';
     data.forEach(producto => {
@@ -14,3 +14,5 @@ export const inicializarLista = (data) => {
         tbody.appendChild(row);
     });
 };
+
+export default ProductList
