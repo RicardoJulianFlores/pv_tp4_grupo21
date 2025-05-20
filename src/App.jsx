@@ -1,59 +1,55 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import './App.css'
 import { ProductList } from './components/ProductList.jsx';
-import { ProductForm } from './components/ProductForm.jsx';
+import { Formulario } from './components/ProductForm.jsx';
 import { SearchBar } from './components/SearchBar.jsx';
 
 function App() {
-  const [products, setProducts] = useState([]);
-  const [editingProduct, setEditingProduct] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [catalogo, setCatalogo] = useState([]);
+  const [productoEditar, setproductoEditar] = useState(null);
+  const [buscado, setbuscado] = useState('');
 
-  useEffect(() => {
-    console.log("Productos actualizados:", products);
-  }, [products]);
-
-  const addProduct = useCallback((product) => {
-    setProducts(prev => [...prev, product]);
+  const agregar = useCallback((producto) => {
+    setCatalogo(prev => [...prev, producto]);
   }, []);
 
-  const updateProduct = useCallback((updatedProduct) => {
-    setProducts(prev => 
-      prev.map(p => (p.id === updatedProduct.id ? updatedProduct : product))
+  const actualizar = useCallback((productoActualizado) => {
+    setCatalogo(prev => 
+      prev.map(p => (p.id === productoActualizado.id ? productoActualizado : p))
     );
   }, []);
 
-  const deleteProduct = useCallback((id) => {
-    setProducts(prev => prev.filter(p => p.id !== id));
+  const borrar = useCallback((id) => {
+    setCatalogo(prev => prev.filter(producto => producto.id !== id));
   }, []);
 
-  const handleAddOrUpdate = useCallback((product) => {
-    const exists = products.find(p => p.id === product.id);
-    if (exists) {
-      updateProduct(product);
+  const handleAddOrUpdate = useCallback((producto) => {
+    const existe = catalogo.find(p => p.id === producto.id);
+    if (existe) {
+      actualizar(producto);
     } else {
-      addProduct(product);
+      agregar(producto);
     }
-    setEditingProduct(null);
-  },[products, addProduct, updateProduct]);
+    setproductoEditar(null);
+  },[catalogo, agregar, actualizar]);
 
-  const handleEdit = useCallback((product) => {
-    setEditingProduct(product);
+  const handleEdit = useCallback((producto) => {
+    setproductoEditar(producto);
   }, []);
 
-  const filteredProducts = useMemo(() => {
-    return products.filter(p =>
-      p.descripcion.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.id.includes(searchTerm)
+  const productosFiltrados = useMemo(() => {
+    return catalogo.filter(producto =>
+      producto.descripcion.toLowerCase().includes(buscado.toLowerCase()) ||
+      producto.id.includes(buscado)
     );
-  }, [products, searchTerm]);
+  }, [catalogo, buscado]);
 
   return (
-    <div style={{padding: "2rem", maxWidth: "800px", margin: "auto"}}>
+    <div>
       <h1>Gestión de Productos</h1>
-      <ProductForm onSubmit={handleAddOrUpdate} editingProduct={editingProduct} />
-      <SearchBar value={searchTerm} onChange={setSearchTerm} />
-      <ProductList products={filteredProducts} onEdit={handleEdit} onDelete={deleteProduct} />
+      <Formulario onSubmit={handleAddOrUpdate} editingProduct={productoEditar} />
+      <SearchBar value={buscado} onChange={setbuscado} />
+      <ProductList productos={productosFiltrados} editar={handleEdit} borrar={borrar} />
     </div>
   );
 };
