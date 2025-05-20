@@ -13,7 +13,7 @@ export const ProductForm = () => {
         <form>
             <h2>"Agregar Producto"</h2>
             
-            <label><imput name="id" type="text" placeholder="ID" value={id} /></label>
+            <label><input name="id" type="text" placeholder="ID"/></label>
         </form>
         )
 }
