@@ -30,7 +30,8 @@ export const Formulario = ({onSubmit,productoEditar}) => {
 
     const enviarFomulario = (e) => {
         e.preventDefault();
-        if (!producto.id || !producto.descripcion) return; 
+        if (!producto.id || !producto.descripcion || producto.precioUnitario || !producto.stock || !producto.descuento) {alert("Falta completar todas las casillas"); 
+        return;}
         onSubmit({...producto, precioUnitario: +producto.precioUnitario, descuento: +producto.descuento, stock: +producto.stock});
         setProducto({ id: '', descripcion: '', precioUnitario: '', descuento: '', stock: '' });
         };
@@ -38,7 +39,7 @@ export const Formulario = ({onSubmit,productoEditar}) => {
     return (
         <form onSubmit={enviarFomulario}>
             <h2>{productoEditar ? 'Editar Producto' : 'Agregar Producto' }</h2>
-            <input name="id" value={producto.id} onChange={manejarCambio} placeholder="ID" disabled={!productoEditar}/>
+            <input name="id" value={producto.id} onChange={manejarCambio} placeholder="ID" disabled={!!productoEditar}/>
             <input name="descripcion" value={producto.descripcion} onChange={manejarCambio} placeholder="Descripcion" />
             <input name="precioUnitario" value={producto.precioUnitario} onChange={manejarCambio} placeholder="Precio Unitario" /> 
             <input name="descuento" type="number" value={producto.descuento} onChange={manejarCambio} placeholder="Descuento %" />
