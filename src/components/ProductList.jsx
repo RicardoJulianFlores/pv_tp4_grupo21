@@ -1,9 +1,13 @@
-export const ProductList = () => {
+import React from 'react'
+import ProductItem from './ProductItem.jsx'
+export const ProductList = ( {products, onDelete, onEdit}) => {
     return (
-        <div>
-            <h2>"Listado de Productos"</h2>
-        </div>
+        <ul>
+            {products.map(product => (
+                <ProductItem key={products.id} product={product} onDelete={onDelete} onEdit={onEdit} />
+            ))}
+        </ul>
     )
 };
 
-export default ProductList
+export default ProductList;
