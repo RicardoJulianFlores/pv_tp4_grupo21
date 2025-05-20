@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 
-export const ProductForm = ({onSubmit, editingProduct}) => {
+export const Formulario = ({onSubmit,productoEditar}) => {
     const [producto, setProducto] = useState({
         id: '',
         descripcion: '',
@@ -10,10 +10,10 @@ export const ProductForm = ({onSubmit, editingProduct}) => {
     });
 
     useEffect(() => {
-        if (editingProduct){
-            setProducto(editingProduct);
+        if (productoEditar){
+            setProducto(productoEditar);
         }
-    }, [editingProduct]);
+    }, [productoEditar]);
 
 
     useEffect(() => {
@@ -23,12 +23,12 @@ export const ProductForm = ({onSubmit, editingProduct}) => {
         setProducto(prev => ({...prev, precioConDescuento: Number(precioConDescuento.toFixed(2))}));
     }, [producto.precioUnitario, producto.descuento]);
 
-    const handleChange = (e) => {
+    const manejarCambio = (e) => {
         const { name, value } = e.target;
         setProducto((prev) => ({...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const enviarFomulario = (e) => {
         e.preventDefault();
         if (!producto.id || !producto.descripcion) return; 
         onSubmit({...producto, precioUnitario: +producto.precioUnitario, descuento: +producto.descuento, stock: +producto.stock});
@@ -36,15 +36,15 @@ export const ProductForm = ({onSubmit, editingProduct}) => {
         };
       
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>{editingProduct ? 'Editar Producto' : 'Agregar Producto' }</h2>
-            <input name="id" value={producto.id} onChange={handleChange} placeholder="ID" disabled={!!editingProduct}/>
-            <input name="descripcion" value={producto.descripcion} onChange={handleChange} placeholder="Descripcion" />
-            <input name="precioUnitario" value={producto.precioUnitario} onChange={handleChange} placeholder="Precio Unitario" /> 
-            <input name="descuento" type="number" value={producto.descuento} onChange={handleChange} placeholder="Descuento %" />
-            <input name="stock" type="number" value={producto.stock} onChange={handleChange} placeholder="Stock" />
-            <button type="submit">{editingProduct ? 'Actualizar' : 'Agregar'}</button>
+        <form onSubmit={enviarFomulario}>
+            <h2>{productoEditar ? 'Editar Producto' : 'Agregar Producto' }</h2>
+            <input name="id" value={producto.id} onChange={manejarCambio} placeholder="ID" disabled={!productoEditar}/>
+            <input name="descripcion" value={producto.descripcion} onChange={manejarCambio} placeholder="Descripcion" />
+            <input name="precioUnitario" value={producto.precioUnitario} onChange={manejarCambio} placeholder="Precio Unitario" /> 
+            <input name="descuento" type="number" value={producto.descuento} onChange={manejarCambio} placeholder="Descuento %" />
+            <input name="stock" type="number" value={producto.stock} onChange={manejarCambio} placeholder="Stock" />
+            <button type="submit">{productoEditar ? 'Actualizar' : 'Agregar'}</button>
         </form>
     );
 };
-export default ProductForm;
+export default Formulario;
