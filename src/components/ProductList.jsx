@@ -1,10 +1,10 @@
 import React from 'react'
 import ProductItem from './ProductItem.jsx'
-export const ProductList = ( {products, onDelete, onEdit}) => {
+export const ProductList = ({productos, borrar, editar}) => {
     return (
         <ul>
-            {products.map(product => (
-                <ProductItem key={products.id} product={product} onDelete={onDelete} onEdit={onEdit} />
+            {productos.map(producto => (
+                <ProductItem key={producto.id} producto={producto} borrar={borrar} editar={editar} />
             ))}
         </ul>
     )
