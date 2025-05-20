@@ -1,12 +1,12 @@
-const ProductItem = ({product, onDelete, onEdit}) => {
+const ProductItem = ({producto, borrar, editar}) => {
     return (
         <li style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem'}}>
-            <strong>{product.descripcion}</strong> (ID: {product.id})<br/>
-            Precio: ${product.precioUnitario} - Descuento: {product.descuento}%<br/>
-            Precio con descuento: ${product.precioConDescuento}<br/>
-            Stock: {product.stock}<br/>
-            <button onClick={() => onEdit(product)}>Editar</button>
-            <button onClick={() => onDelete(product.id)}>Eliminar</button>
+            <strong>{producto.descripcion}</strong> (ID: {producto.id})<br/>
+            Precio: ${producto.precioUnitario} - Descuento: {producto.descuento}%<br/>
+            Precio con descuento: ${producto.precioConDescuento}<br/>
+            Stock: {producto.stock}<br/>
+            <button onClick={() => editar(producto)}>Editar</button>
+            <button onClick={() => borrar(producto.id)}>Eliminar</button>
         </li>
     );
 };
