@@ -4,9 +4,9 @@ export const ProductForm = ({onSubmit, editingProduct}) => {
     const [producto, setProducto] = useState({
         id: '',
         descripcion: '',
-        precioUnitario: 0,
-        descuento: 0,
-        stock: 0,
+        precioUnitario: '',
+        descuento: '',
+        stock: '',
     });
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export const ProductForm = ({onSubmit, editingProduct}) => {
         e.preventDefault();
         if (!producto.id || !producto.descripcion) return; 
         onSubmit({...producto, precioUnitario: +producto.precioUnitario, descuento: +producto.descuento, stock: +producto.stock});
-        setProducto({ id: '', descripcion: '', precioUnitario: 0, descuento: 0, stock: 0 });
+        setProducto({ id: '', descripcion: '', precioUnitario: '', descuento: '', stock: '' });
         };
       
     return (
@@ -42,7 +42,7 @@ export const ProductForm = ({onSubmit, editingProduct}) => {
             <input name="descripcion" value={producto.descripcion} onChange={handleChange} placeholder="Descripcion" />
             <input name="precioUnitario" value={producto.precioUnitario} onChange={handleChange} placeholder="Precio Unitario" /> 
             <input name="descuento" type="number" value={producto.descuento} onChange={handleChange} placeholder="Descuento %" />
-            <input name="sotck" type="number" value={producto.stock} onChange={handleChange} placeholder="Stock" />
+            <input name="stock" type="number" value={producto.stock} onChange={handleChange} placeholder="Stock" />
             <button type="submit">{editingProduct ? 'Actualizar' : 'Agregar'}</button>
         </form>
     );
