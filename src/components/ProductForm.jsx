@@ -30,7 +30,7 @@ export const Formulario = ({onSubmit,productoEditar}) => {
 
     const enviarFomulario = (e) => {
         e.preventDefault();
-        if (!producto.id || !producto.descripcion || producto.precioUnitario || !producto.stock || !producto.descuento) {alert("Falta completar todas las casillas"); 
+        if (!producto.id || !producto.descripcion || !producto.precioUnitario || !producto.stock || !producto.descuento) {alert("Falta completar todas las casillas"); 
         return;}
         onSubmit({...producto, precioUnitario: +producto.precioUnitario, descuento: +producto.descuento, stock: +producto.stock});
         setProducto({ id: '', descripcion: '', precioUnitario: '', descuento: '', stock: '' });
