@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useCallback, useMemo, useState } from 'react'
 import './App.css'
+import { ProductList } from './components/ProductList.jsx';
+import { Formulario } from './components/ProductForm.jsx';
+import { SearchBar } from './components/SearchBar.jsx';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [catalogo, setCatalogo] = useState([]);
+  const [productoEditar, setproductoEditar] = useState(null);
+  const [buscado, setBuscado] = useState('');
+
+  const agregar = useCallback((producto) => {
+    setCatalogo(prev => [...prev, producto]);
+  }, []);
+
+  const actualizar = useCallback((productoActualizado) => {
+    setCatalogo(prev => 
+      prev.map(p => (p.id === productoActualizado.id ? productoActualizado : p))
+    );
+  }, []);
+
+  const borrar = useCallback((id) => {
+    setCatalogo(prev => prev.filter(producto => producto.id !== id));
+  }, []);
+
+  const manejoAgregaroActualizar = useCallback((producto) => {
+    const existe = catalogo.find(p => p.id === producto.id);
+    if (existe) {
+      actualizar(producto);
+    } else {
+      agregar(producto);
+    }
+    setproductoEditar(null);
+  },[catalogo, agregar, actualizar]);
+
+  const editar = useCallback((producto) => {
+    setproductoEditar(producto);
+  }, []);
+
+  const productosFiltrados = useMemo(() => {
+    return catalogo.filter(producto =>
+      producto.descripcion.toLowerCase().includes(buscado.toLowerCase()) ||
+      producto.id.includes(buscado)
+    );
+  }, [catalogo, buscado]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <h1>Gestión de Productos</h1>
+      <Formulario onSubmit={manejoAgregaroActualizar} productoEditar={productoEditar} />
+      <SearchBar value={buscado} onChange={setBuscado} />
+      <ProductList productos={productosFiltrados} editar={editar} borrar={borrar} />
+    </div>
+  );
+};
 
 export default App
