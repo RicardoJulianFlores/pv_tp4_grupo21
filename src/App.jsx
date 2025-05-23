@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import './App.css'
 import { ProductList } from './components/ProductList.jsx';
 import { Formulario } from './components/ProductForm.jsx';
@@ -7,7 +7,7 @@ import { SearchBar } from './components/SearchBar.jsx';
 function App() {
   const [catalogo, setCatalogo] = useState([]);
   const [productoEditar, setproductoEditar] = useState(null);
-  const [buscado, setbuscado] = useState('');
+  const [buscado, setBuscado] = useState('');
 
   const agregar = useCallback((producto) => {
     setCatalogo(prev => [...prev, producto]);
@@ -23,7 +23,7 @@ function App() {
     setCatalogo(prev => prev.filter(producto => producto.id !== id));
   }, []);
 
-  const handleAddOrUpdate = useCallback((producto) => {
+  const manejoAgregaroActualizar = useCallback((producto) => {
     const existe = catalogo.find(p => p.id === producto.id);
     if (existe) {
       actualizar(producto);
@@ -33,7 +33,7 @@ function App() {
     setproductoEditar(null);
   },[catalogo, agregar, actualizar]);
 
-  const handleEdit = useCallback((producto) => {
+  const editar = useCallback((producto) => {
     setproductoEditar(producto);
   }, []);
 
@@ -47,9 +47,9 @@ function App() {
   return (
     <div>
       <h1>Gestión de Productos</h1>
-      <Formulario onSubmit={handleAddOrUpdate} editingProduct={productoEditar} />
-      <SearchBar value={buscado} onChange={setbuscado} />
-      <ProductList productos={productosFiltrados} editar={handleEdit} borrar={borrar} />
+      <Formulario onSubmit={manejoAgregaroActualizar} productoEditar={productoEditar} />
+      <SearchBar value={buscado} onChange={setBuscado} />
+      <ProductList productos={productosFiltrados} editar={editar} borrar={borrar} />
     </div>
   );
 };
