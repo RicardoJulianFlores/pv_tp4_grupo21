@@ -8,6 +8,7 @@ export const SearchBar = ({ value, onChange }) => {
   };
   return (
     <div style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem' }}>
+      Buscador:
       <input
         type="text"
         placeholder="Buscar por ID o desc."
