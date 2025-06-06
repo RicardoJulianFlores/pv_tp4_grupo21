@@ -39,11 +39,11 @@ export const Formulario = ({onSubmit,productoEditar}) => {
     return (
         <form onSubmit={enviarFomulario}>
             <h2>{productoEditar ? 'Editar Producto' : 'Agregar Producto' }</h2>
-            <input name="id" value={producto.id} onChange={manejarCambio} placeholder="ID" disabled={!!productoEditar}/>
-            <input name="descripcion" value={producto.descripcion} onChange={manejarCambio} placeholder="Descripcion" />
-            <input name="precioUnitario" value={producto.precioUnitario} onChange={manejarCambio} placeholder="Precio Unitario" /> 
-            <input name="descuento" type="number" value={producto.descuento} onChange={manejarCambio} placeholder="Descuento %" />
-            <input name="stock" type="number" value={producto.stock} onChange={manejarCambio} placeholder="Stock" />
+            <label>ID: <input name="id" value={producto.id} onChange={manejarCambio} placeholder="ID" disabled={!!productoEditar}/></label>
+            <label>Descripcion: <input name="descripcion" value={producto.descripcion} onChange={manejarCambio} placeholder="Descripcion" /></label>
+            <label>Precio Unitario: <input name="precioUnitario" value={producto.precioUnitario} onChange={manejarCambio} placeholder="Precio Unitario" /> </label>
+            <label>Descuento: <input name="descuento" type="number" value={producto.descuento} onChange={manejarCambio} placeholder="Descuento %" /></label>
+            <label>Stock: <input name="stock" type="number" value={producto.stock} onChange={manejarCambio} placeholder="Stock" /></label>
             <button type="submit">{productoEditar ? 'Actualizar' : 'Agregar'}</button>
         </form>
     );
